@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Mis XV Años · Keitlin</title>
+  <meta name="description" content="Te invito a celebrar conmigo una noche mágica: mis XV años.">
+
+  <!-- Vista previa al compartir por WhatsApp / Facebook -->
+  <meta property="og:title" content="Mis XV Años · Keitlin Agudelo García">
+  <meta property="og:description" content="Te invito a celebrar conmigo una noche mágica ✨">
+  <meta property="og:image" content="https://invitacion-xv-six-eta.vercel.app/assets/img/portada-og.jpg">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#2a1740">
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ ÍCONOS SVG REUTILIZABLES ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <pattern id="pTrenza" width="14" height="14" patternUnits="userSpaceOnUse">
+        <ellipse cx="7" cy="4.6" rx="7.5" ry="3.1" transform="rotate(24 7 4.6)" fill="#eacb6a"/>
+        <ellipse cx="7" cy="9.4" rx="7.5" ry="3.1" transform="rotate(-24 7 9.4)" fill="#c79a2c"/>
+      </pattern>
+    </defs>
+    <!-- Trenza dorada (separador) -->
+    <symbol id="trenza" viewBox="0 0 210 14">
+      <rect width="210" height="14" rx="7" fill="url(#pTrenza)"/>
+    </symbol>
+    <!-- Flor -->
+    <symbol id="flor" viewBox="0 0 20 20">
+      <g fill="currentColor">
+        <circle cx="10" cy="4.6" r="4"/><circle cx="15.2" cy="8.4" r="4"/>
+        <circle cx="13.2" cy="14.5" r="4"/><circle cx="6.8" cy="14.5" r="4"/>
+        <circle cx="4.8" cy="8.4" r="4"/>
+      </g>
+      <circle cx="10" cy="10" r="3" fill="#f3d36b"/>
+    </symbol>
+    <!-- Torre -->
+    <symbol id="torre" viewBox="0 0 100 170">
+      <path d="M50 2 78 50H22Z" fill="currentColor"/>
+      <path d="M50 2v-1" stroke="currentColor"/>
+      <rect x="16" y="50" width="68" height="9" rx="2" fill="currentColor"/>
+      <path d="M27 59h46l5 109H22Z" fill="currentColor"/>
+      <path d="M41 84a9 9 0 0 1 18 0v20H41Z" fill="#f6d77a"/>
+      <path d="M38 104h24" stroke="#f6d77a" stroke-width="2"/>
+      <path d="M40 130h20M37 150h26" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+    </symbol>
+    <!-- Esquina floral -->
+    <symbol id="esquinaFlor" viewBox="0 0 80 80">
+      <path d="M2 78C8 46 26 22 76 4" fill="none" stroke="#8fae7e" stroke-width="2"/>
+      <path d="M20 46c-8-2-12 2-14 8 7 1 12-2 14-8ZM40 24c-2-8 2-13 9-14 0 7-3 12-9 14Z" fill="#8fae7e"/>
+      <use href="#flor" x="4" y="54" width="16" height="16" color="#c9a6e8"/>
+      <use href="#flor" x="26" y="28" width="13" height="13" color="#f2b8cf"/>
+      <use href="#flor" x="54" y="2" width="15" height="15" color="#c9a6e8"/>
+    </symbol>
+    <!-- Farol -->
+    <symbol id="farol" viewBox="0 0 30 40">
+      <defs>
+        <radialGradient id="gFarol" cx="50%" cy="70%" r="60%">
+          <stop offset="0" stop-color="#fff3b0"/><stop offset=".4" stop-color="#ffc04d"/><stop offset="1" stop-color="#d9772a"/>
+        </radialGradient>
+      </defs>
+      <path d="M6 4h18l4 26c0 4-6 6-13 6S2 34 2 30Z" fill="url(#gFarol)"/>
+      <rect x="9" y="36" width="12" height="3" rx="1.5" fill="#8a4a16"/>
+    </symbol>
+    <symbol id="icoPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+    <symbol id="icoPausa" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></symbol>
+  </svg>
+
+  <!-- ============ CIELO NOCTURNO CON FAROLES ============ -->
+  <div class="cielo" aria-hidden="true">
+    <div class="estrellas"></div>
+    <div id="faroles"></div>
+  </div>
+
+  <!-- ============ PANTALLA DE BIENVENIDA ============ -->
+  <section id="bienvenida" class="bienvenida">
+    <div class="sobre">
+      <svg class="sobre-torre"><use href="#torre"/></svg>
+      <p class="sobre-sub" id="saludoInvitado">Estás invitado(a) a</p>
+      <h1 class="script">Mis XV Años</h1>
+      <p class="sobre-nombre" data-config="nombre">Keitlin</p>
+      <svg class="trenza"><use href="#trenza"/></svg>
+      <button id="btnAbrir" class="sello" aria-label="Abrir invitación">
+        <span>XV</span>
+      </button>
+      <p class="sobre-hint">Toca el sello para abrir tu invitación</p>
+      <small class="sobre-nota">🎶 Sube el volumen para vivir la magia</small>
+    </div>
+  </section>
+
+  <!-- ============ LIBRO ============ -->
+  <main id="escenario" class="escenario oculto">
+    <div class="libro" id="libro">
+
+      <!-- 1. PORTADA -->
+      <article class="hoja">
+        <div class="cara frente portada">
+          <div class="pagina">
+            <svg class="portada-torre"><use href="#torre"/></svg>
+            <p class="pre">Un sueño hecho realidad</p>
+            <h2 class="nombre-grande" data-config="nombre">Keitlin</h2>
+            <p class="apellidos" data-config="apellidos">Agudelo García</p>
+            <p class="xv">Mis XV Años</p>
+            <svg class="trenza"><use href="#trenza"/></svg>
+            <p class="fecha-corta" data-config="fechaCorta">19 · 12 · 2026</p>
+            <p class="hint">Desliza o toca la esquina para pasar la página ➜</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. DEDICATORIA -->
+      <article class="hoja">
+        <div class="cara frente">
+          <div class="pagina">
+            <p class="pre">Con la bendición de Dios</p>
+            <h3 class="titulo-pag">y el amor de mis padres</h3>
+            <p class="nombres" data-config="padre">Jhonatan Agudelo</p>
+            <p class="y">&amp;</p>
+            <p class="nombres" data-config="madre">Katherine García</p>
+            <svg class="trenza"><use href="#trenza"/></svg>
+            <blockquote class="frase" data-config="frase">
+              “Tu presencia hará que esta noche sea un recuerdo inolvidable y convertirá este sueño en el día más importante de mi vida.”
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. GALERÍA DE FOTOS -->
+      <article class="hoja">
+        <div class="cara frente">
+          <div class="pagina">
+            <h3 class="titulo-pag">Momentos de mi historia</h3>
+            <div class="galeria" id="galeria"></div>
+            <p class="texto mini">Toca una foto para verla en grande</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. CUENTA REGRESIVA -->
+      <article class="hoja">
+        <div class="cara frente">
+          <div class="pagina">
+            <svg class="icono-farol"><use href="#farol"/></svg>
+            <h3 class="titulo-pag">Falta muy poco</h3>
+            <p class="texto fecha-larga" data-config="fechaTexto">Sábado 19 de diciembre de 2026</p>
+            <p class="hora">🕗 <span data-config="hora">8:00 p. m.</span></p>
+            <div class="cuenta" id="cuenta">
+              <div><span id="cDias">00</span><small>Días</small></div>
+              <div><span id="cHoras">00</span><small>Horas</small></div>
+              <div><span id="cMin">00</span><small>Min</small></div>
+              <div><span id="cSeg">00</span><small>Seg</small></div>
+            </div>
+            <p id="cuentaMensaje" class="cuenta-msg">para la noche más mágica de mi vida</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. UBICACIÓN -->
+      <article class="hoja">
+        <div class="cara frente">
+          <div class="pagina">
+            <h3 class="titulo-pag">📍 ¿Dónde será?</h3>
+            <p class="lugar" data-config="lugar.nombre"></p>
+            <p class="direccion" data-config="lugar.direccion">Calle 37 # 9D-03</p>
+            <p class="texto" data-config="lugar.ciudad"></p>
+            <p class="hora">🕗 <span data-config="hora">8:00 p. m.</span></p>
+            <svg class="trenza"><use href="#trenza"/></svg>
+            <div class="botones">
+              <a class="btn btn-oro" id="btnMaps" target="_blank" rel="noopener">📍 Ver en Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. VESTIMENTA Y REGALOS -->
+      <article class="hoja">
+        <div class="cara frente">
+          <div class="pagina">
+            <p class="icono-grande">👗🤵</p>
+            <h3 class="titulo-pag">Código de vestimenta</h3>
+            <p class="lugar vestimenta" data-config="vestimenta">Formal</p>
+            <p class="texto nota-lila" data-config="notaVestimenta">El color lila está reservado para la quinceañera.</p>
+            <svg class="trenza"><use href="#trenza"/></svg>
+            <p class="icono-grande">🎁</p>
+            <h3 class="titulo-pag">Regalos</h3>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. CONTRAPORTADA -->
+      <article class="hoja">
+        <div class="cara frente portada">
+          <div class="pagina">
+            <svg class="portada-torre"><use href="#torre"/></svg>
+            <h3 class="nombre-grande">¡Gracias!</h3>
+            <p class="texto">Te espero para iluminar juntos esta noche mágica.</p>
+            <svg class="trenza"><use href="#trenza"/></svg>
+            <p class="nombres" data-config="nombreCompleto">Keitlin Agudelo García</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- REPRODUCTOR EN LA ESQUINA DEL LIBRO -->
+      <button class="rep-esquina" id="btnMusica" aria-label="Reproducir música">
+        <svg class="rep-esquina-anillo" viewBox="0 0 60 60" aria-hidden="true">
+          <circle class="anillo-fondo" cx="30" cy="30" r="27"/>
+          <circle class="anillo-progreso" id="anilloProgreso" cx="30" cy="30" r="27"/>
+        </svg>
+        <span class="rep-esquina-vinilo" aria-hidden="true"></span>
+        <svg class="ico-play" aria-hidden="true"><use href="#icoPlay"/></svg>
+        <svg class="ico-pausa" aria-hidden="true"><use href="#icoPausa"/></svg>
+      </button>
+
+    </div>
+
+    <nav class="controles" aria-label="Navegación del libro">
+      <button id="btnAnterior" class="btn-nav" aria-label="Página anterior">‹</button>
+      <span id="indicador">1 / 7</span>
+      <button id="btnSiguiente" class="btn-nav" aria-label="Página siguiente">›</button>
+    </nav>
+  </main>
+
+  <!-- La canción se define en CONFIG.musica (js/main.js) -->
+  <audio id="audio" loop preload="auto"></audio>
+
+  <!-- ============ VISOR DE FOTOS ============ -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-btn lb-cerrar" id="lbCerrar" aria-label="Cerrar">×</button>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+    <img id="lbImg" alt="">
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Siguiente">›</button>
+  </div>
+
+  <!-- ============ TRANSICIÓN TIPO PELÍCULA (al tocar el sello) ============ -->
+  <div class="cine" id="cine" aria-hidden="true">
+    <canvas id="cineCanvas"></canvas>
+    <div class="cine-destello"></div>
+    <p class="cine-titulo">Érase una vez…</p>
+    <div class="cine-franja arriba"></div>
+    <div class="cine-franja abajo"></div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
