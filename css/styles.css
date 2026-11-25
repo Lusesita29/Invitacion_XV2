@@ -1,0 +1,696 @@
+/* =========================================================
+   INVITACIÓN XV AÑOS · TEMÁTICA RAPUNZEL (cuento de hadas)
+   ========================================================= */
+
+:root {
+  /* Paleta: cámbiala aquí y se actualiza todo */
+  --noche: #1f1233;
+  --morado: #4b2a6b;
+  --morado-2: #6b3f94;
+  --lila: #b79fd8;
+  --lila-claro: #ece3f8;
+  --oro: #d4af37;
+  --oro-claro: #f3dc8a;
+  --oro-osc: #a07a18;
+  --papel: #fdf8ee;
+  --tinta: #3d2a4f;
+
+  --f-script: 'Great Vibes', cursive;
+  --f-titulo: 'Cinzel Decorative', serif;
+  --f-texto: 'Cormorant Garamond', Georgia, serif;
+
+  /* Tamaño del libro (ancho de UNA página) */
+  --w: min(88vw, 400px, 48vh);
+  --h: calc(var(--w) * 1.55);
+  --giro: .9s cubic-bezier(.645, .045, .355, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; }
+body {
+  font-family: var(--f-texto);
+  color: var(--tinta);
+  background: radial-gradient(ellipse at 50% 115%, #7a4a9e 0%, #3a2058 42%, var(--noche) 78%) fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.oculto { display: none !important; }
+.script { font-family: var(--f-script); font-weight: 400; }
+
+/* ---------- Cielo, estrellas y faroles ---------- */
+.cielo { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.estrellas {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 33% 42%, #fffbe0, transparent),
+    radial-gradient(1.5px 1.5px at 58% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 76% 36%, #fff, transparent),
+    radial-gradient(2px 2px at 88% 8%, #fff6c8, transparent),
+    radial-gradient(1px 1px at 46% 70%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 22% 82%, #fff, transparent);
+  background-size: 320px 320px;
+  animation: titilar 4s ease-in-out infinite alternate;
+}
+@keyframes titilar { from { opacity: .45; } to { opacity: 1; } }
+
+.farol {
+  position: absolute; bottom: -70px;
+  border-radius: 42% 42% 34% 34% / 50% 50% 42% 42%;
+  background: radial-gradient(circle at 50% 70%, #fff3b0 0%, #ffc04d 35%, #e8892a 75%, #b85d1c 100%);
+  box-shadow: 0 0 12px 4px rgba(255, 190, 80, .55), 0 0 40px 12px rgba(255, 160, 60, .22);
+  animation: subir linear infinite;
+}
+.farol::after {
+  content: ""; position: absolute; bottom: -3px; left: 30%;
+  width: 40%; height: 3px; border-radius: 2px; background: #7a3e10;
+}
+@keyframes subir {
+  0%   { transform: translate(0, 0) rotate(-3deg); }
+  50%  { transform: translate(16px, -60vh) rotate(3deg); }
+  100% { transform: translate(-12px, -125vh) rotate(-2deg); }
+}
+
+/* ---------- Pantalla de bienvenida ---------- */
+.bienvenida {
+  position: fixed; inset: 0; z-index: 50;
+  display: grid; place-items: center; padding: 20px;
+  transition: opacity .9s ease, visibility .9s;
+}
+.bienvenida.salir { opacity: 0; visibility: hidden; }
+.sobre {
+  width: min(92vw, 420px);
+  padding: 34px 26px 28px;
+  text-align: center; color: var(--papel);
+  background: linear-gradient(160deg, rgba(107, 63, 148, .78), rgba(36, 19, 58, .9));
+  border: 1px solid rgba(243, 220, 138, .5);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .5), inset 0 0 0 7px rgba(243, 220, 138, .07);
+  backdrop-filter: blur(6px);
+  animation: aparecer 1.2s ease both;
+}
+.sobre-torre { width: 58px; height: 96px; color: var(--oro-claro); filter: drop-shadow(0 0 10px rgba(243, 220, 138, .5)); }
+.sobre-sub { margin-top: 10px; letter-spacing: .25em; text-transform: uppercase; font-size: .85rem; color: var(--lila-claro); }
+.sobre h1 {
+  font-size: clamp(3rem, 14vw, 4.4rem); line-height: 1.05;
+  color: var(--oro-claro); text-shadow: 0 0 18px rgba(243, 220, 138, .5);
+}
+.sobre-nombre { font-family: var(--f-titulo); font-size: 1.5rem; letter-spacing: .12em; }
+.sobre .trenza { margin: 14px auto 18px; }
+.sello {
+  width: 92px; height: 92px; border-radius: 50%; border: none; cursor: pointer;
+  display: grid; place-items: center; margin: 0 auto;
+  background: radial-gradient(circle at 35% 30%, #f8e7a8, var(--oro) 45%, var(--oro-osc));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .45), inset 0 0 0 5px rgba(255, 255, 255, .18), inset 0 0 0 9px rgba(160, 122, 24, .5);
+  animation: latido 2.2s ease-in-out infinite;
+  transition: transform .3s;
+}
+.sello span { font-family: var(--f-titulo); font-weight: 700; font-size: 1.7rem; color: #4a300c; }
+.sello:hover { transform: scale(1.08) rotate(-6deg); }
+.sobre-hint { margin-top: 14px; font-size: 1.05rem; font-style: italic; }
+.sobre-nota { display: block; margin-top: 6px; opacity: .75; }
+
+@keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+@keyframes aparecer { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Escenario y libro ---------- */
+.escenario {
+  position: relative; z-index: 1;
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; padding: 20px 12px 90px;
+  animation: aparecer 1s ease both;
+}
+.libro {
+  position: relative; width: var(--w); height: var(--h);
+  perspective: 2200px;
+  transition: transform var(--giro);
+}
+.hoja {
+  position: absolute; inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform var(--giro), opacity .3s;
+}
+.hoja.volteada { transform: rotateY(-180deg); }
+.hoja.girando { z-index: 999 !important; }
+
+.cara {
+  position: absolute; inset: 0;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  border-radius: 4px 14px 14px 4px; overflow: hidden;
+}
+.frente {
+  display: flex; flex-direction: column;
+  padding: 30px 24px 44px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, .9), transparent 70%),
+    radial-gradient(circle at 80% 90%, rgba(183, 159, 216, .18), transparent 50%),
+    var(--papel);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .45);
+}
+/* Marco dorado */
+.frente::before {
+  content: ""; position: absolute; inset: 11px; pointer-events: none;
+  border: 1px solid rgba(212, 175, 55, .6); border-radius: 3px 10px 10px 3px;
+  box-shadow: inset 0 0 0 3px rgba(212, 175, 55, .12);
+}
+/* Sombra del lomo */
+.frente::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(60, 30, 80, .22), transparent 7%);
+}
+.pagina {
+  position: relative; z-index: 1;
+  margin: auto 0; width: 100%; max-height: 100%;
+  overflow-y: auto; scrollbar-width: none;
+}
+.pagina::-webkit-scrollbar { display: none; }
+
+/* Esquinas florales */
+.deco-esq { position: absolute; width: 74px; height: 74px; pointer-events: none; z-index: 2; }
+.deco-esq.sup { top: 4px; right: 4px; transform: scaleX(-1) rotate(90deg); }
+.deco-esq.inf { bottom: 4px; left: 4px; }
+
+/* Reverso de la hoja */
+.reverso {
+  transform: rotateY(180deg);
+  border-radius: 14px 4px 4px 14px;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .55), transparent 62%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .13) 0 2px, transparent 2px 16px),
+    linear-gradient(160deg, #dccbf1, var(--lila));
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .45);
+}
+.reverso::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(270deg, rgba(60, 30, 80, .25), transparent 8%);
+}
+.reverso svg { width: 34%; height: 50%; color: var(--morado); opacity: .28; }
+
+/* Esquina doblada para pasar página */
+.esquina {
+  position: absolute; right: 0; bottom: 0; z-index: 5;
+  width: 44px; height: 44px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, #fff 0%, var(--lila-claro) 42%, var(--lila) 50%, transparent 51%);
+  border-top-left-radius: 10px;
+  filter: drop-shadow(-2px -2px 3px rgba(0, 0, 0, .15));
+  transition: width .25s, height .25s;
+  animation: guino 3s ease-in-out infinite;
+}
+.esquina:hover { width: 58px; height: 58px; }
+@keyframes guino { 0%, 80%, 100% { width: 44px; height: 44px; } 88% { width: 56px; height: 56px; } }
+
+.num-pag {
+  position: absolute; left: 0; right: 0; bottom: 17px; z-index: 2;
+  font-size: .78rem; letter-spacing: .3em; color: var(--oro-osc);
+}
+
+/* Móvil: la hoja volteada se desvanece (se ve una página a la vez) */
+@media (max-width: 899px) {
+  .hoja.volteada {
+    opacity: 0; pointer-events: none;
+    transition: transform var(--giro), opacity .35s .55s;
+  }
+}
+/* Escritorio: libro abierto a doble página */
+@media (min-width: 900px) {
+  :root { --w: min(40vw, 400px, 56vh); }
+  .libro.abierto { transform: translateX(50%); }
+}
+
+/* ---------- Tipografía de las páginas ---------- */
+.pre { font-size: .82rem; letter-spacing: .28em; text-transform: uppercase; color: var(--morado-2); }
+.titulo-pag {
+  font-family: var(--f-titulo); font-weight: 700;
+  font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+  color: var(--morado); margin: .35rem 0 .55rem;
+}
+.nombre-grande {
+  font-family: var(--f-script); font-weight: 400;
+  font-size: clamp(3.1rem, 15vw, 4.5rem); line-height: 1.05;
+  color: var(--morado); text-shadow: 0 2px 0 rgba(212, 175, 55, .35);
+}
+.apellidos { font-family: var(--f-titulo); font-size: .95rem; letter-spacing: .12em; color: var(--morado-2); margin-bottom: .3rem; }
+.y { font-family: var(--f-script); font-size: 1.6rem; color: var(--oro-osc); line-height: 1; }
+.direccion { font-family: var(--f-titulo); font-weight: 700; font-size: clamp(1.1rem, 5vw, 1.35rem); color: var(--morado); margin: .2rem 0; }
+.xv { font-family: var(--f-titulo); letter-spacing: .25em; font-size: 1.15rem; color: var(--oro-osc); }
+.fecha-corta { font-family: var(--f-titulo); letter-spacing: .2em; font-size: 1.05rem; color: var(--morado); }
+.hint { margin-top: 1rem; font-size: .9rem; font-style: italic; opacity: .7; }
+.texto { font-size: 1.08rem; line-height: 1.45; }
+.texto.mini { font-size: .9rem; opacity: .7; margin-top: .5rem; }
+.nombres { font-family: var(--f-script); font-size: clamp(1.6rem, 7vw, 2rem); color: var(--morado); margin: .1rem 0 .5rem; line-height: 1.2; }
+.frase { font-style: italic; font-size: 1.1rem; line-height: 1.5; color: var(--morado-2); padding: 0 .4rem; }
+.lugar { font-family: var(--f-titulo); font-size: 1.05rem; color: var(--tinta); margin-bottom: .3rem; }
+.hora { font-size: 1.15rem; font-weight: 600; margin-top: .4rem; }
+.icono-grande { font-size: 2.2rem; margin-bottom: .1rem; }
+.icono-farol { width: 40px; height: 54px; filter: drop-shadow(0 0 10px rgba(255, 180, 70, .7)); }
+
+.trenza { display: block; width: 62%; max-width: 210px; height: 14px; margin: .8rem auto; }
+.portada .portada-torre { width: 64px; height: 108px; color: var(--morado); margin-bottom: .4rem; }
+
+/* ---------- Botones ---------- */
+.botones { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-top: 1rem; }
+.botones.columna { flex-direction: column; align-items: stretch; padding: 0 .5rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+  padding: .7em 1.25em; border-radius: 999px; border: none; cursor: pointer;
+  font-family: var(--f-texto); font-weight: 600; font-size: 1.02rem; letter-spacing: .02em;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-oro { background: linear-gradient(135deg, var(--oro-claro), var(--oro) 55%, var(--oro-osc)); color: #3a2410; box-shadow: 0 6px 18px rgba(212, 175, 55, .4); }
+.btn-lila { background: linear-gradient(135deg, var(--lila), var(--morado-2)); color: #fff; box-shadow: 0 6px 18px rgba(107, 63, 148, .35); }
+.btn-verde { background: linear-gradient(135deg, #3ccf7a, #1f9d55); color: #fff; box-shadow: 0 6px 18px rgba(31, 157, 85, .3); }
+
+/* ---------- Cuenta regresiva ---------- */
+.cuenta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin: 1rem 0 .6rem; }
+.cuenta div {
+  padding: 10px 2px; border-radius: 12px; color: #fff;
+  background: linear-gradient(160deg, var(--morado-2), var(--morado));
+  box-shadow: inset 0 0 0 1px rgba(243, 220, 138, .5), 0 6px 14px rgba(75, 42, 107, .3);
+}
+.cuenta span { display: block; font-family: var(--f-titulo); font-weight: 700; font-size: clamp(1.25rem, 6vw, 1.7rem); color: var(--oro-claro); }
+.cuenta small { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+.cuenta-msg { font-style: italic; font-size: 1.05rem; }
+
+/* ---------- Galería ---------- */
+.galeria { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 4px; }
+.foto {
+  aspect-ratio: 1; border: 4px solid #fff; border-radius: 6px; padding: 0; cursor: zoom-in;
+  overflow: hidden; background: linear-gradient(150deg, var(--lila-claro), var(--lila));
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .18); transition: transform .25s;
+  position: relative;
+}
+.foto:nth-child(odd) { transform: rotate(-2deg); }
+.foto:nth-child(even) { transform: rotate(2deg); }
+.foto:hover { transform: rotate(0) scale(1.04); }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto.vacia { cursor: default; }
+.foto.vacia::after {
+  content: "✿"; position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 2rem; color: rgba(255, 255, 255, .85);
+}
+
+/* ---------- Itinerario ---------- */
+.linea { list-style: none; text-align: left; position: relative; padding: .3rem 0 .3rem 26px; margin: .4rem auto 0; max-width: 280px; }
+.linea::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--oro-claro), var(--oro), var(--oro-claro)); }
+.linea li { position: relative; margin-bottom: 1rem; }
+.linea li::before {
+  content: ""; position: absolute; left: -24px; top: 5px; width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle, #fff3b0, var(--oro)); box-shadow: 0 0 8px rgba(212, 175, 55, .8);
+}
+.linea strong { display: block; font-family: var(--f-titulo); font-size: .95rem; color: var(--morado); }
+.linea span { font-size: 1.05rem; }
+
+/* ---------- Pase ---------- */
+.pase {
+  position: relative; margin: .6rem .3rem 0; padding: 20px 14px;
+  border: 2px dashed var(--oro); border-radius: 16px;
+  background: linear-gradient(160deg, #fff, var(--lila-claro));
+}
+.pase::before, .pase::after {
+  content: ""; position: absolute; top: 50%; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--papel); transform: translateY(-50%);
+}
+.pase::before { left: -12px; } .pase::after { right: -12px; }
+.pase-top { font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; color: var(--oro-osc); }
+.pase-nombre { font-family: var(--f-script); font-size: clamp(1.8rem, 8vw, 2.3rem); color: var(--morado); line-height: 1.2; margin: .3rem 0; }
+.pase-num span { display: block; font-family: var(--f-titulo); font-weight: 700; font-size: 3rem; color: var(--morado); line-height: 1; }
+.pase-num small { letter-spacing: .25em; text-transform: uppercase; }
+.pase-nota { font-size: .95rem; margin-top: .6rem; }
+
+/* ---------- Controles ---------- */
+.controles { display: flex; align-items: center; gap: 18px; color: var(--oro-claro); font-family: var(--f-titulo); position: relative; z-index: 2; }
+.btn-nav {
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--oro-claro); background: rgba(255, 255, 255, .08); color: var(--oro-claro);
+  font-size: 1.7rem; line-height: 1; transition: background .2s, opacity .2s;
+}
+.btn-nav:hover { background: rgba(243, 220, 138, .2); }
+.btn-nav:disabled { opacity: .3; cursor: default; }
+
+/* ---------- Reproductor en la esquina del libro ---------- */
+.rep-esquina {
+  position: absolute; top: -18px; right: -18px; z-index: 1200;
+  width: 60px; height: 60px; padding: 0; border: none; border-radius: 50%;
+  background: transparent; cursor: pointer;
+  display: grid; place-items: center;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .45));
+  transition: transform .25s;
+}
+.rep-esquina:hover { transform: scale(1.08); }
+.rep-esquina > * { grid-area: 1 / 1; }
+.rep-esquina-anillo { width: 60px; height: 60px; transform: rotate(-90deg); }
+.anillo-fondo { fill: rgba(42, 23, 64, .85); stroke: rgba(243, 220, 138, .3); stroke-width: 3; }
+.anillo-progreso {
+  fill: none; stroke: var(--oro-claro); stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 169.65; stroke-dashoffset: 169.65;
+  transition: stroke-dashoffset .3s linear;
+}
+.rep-esquina-vinilo {
+  width: 46px; height: 46px; border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--oro-claro) 0 11px, var(--oro) 12px, transparent 13px),
+    repeating-radial-gradient(circle, #241338 0 2px, #3d2a55 2px 3px);
+  box-shadow: inset 0 0 0 2px rgba(243, 220, 138, .55);
+  animation: girar 4s linear infinite paused;
+}
+.rep-esquina.sonando .rep-esquina-vinilo { animation-play-state: running; }
+.rep-esquina svg.ico-play, .rep-esquina svg.ico-pausa { width: 14px; height: 14px; color: #3a2058; position: relative; }
+.rep-esquina .ico-pausa, .rep-esquina.sonando .ico-play { display: none; }
+.rep-esquina.sonando .ico-pausa { display: block; }
+/* Pequeña nota musical que flota mientras suena */
+.rep-esquina::after {
+  content: "♪"; position: absolute; top: -6px; left: -4px;
+  font-size: 1rem; color: var(--oro-claro); opacity: 0;
+  text-shadow: 0 0 6px rgba(243, 220, 138, .8);
+}
+.rep-esquina.sonando::after { animation: nota 2.4s ease-out infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes nota {
+  0% { opacity: 0; transform: translate(0, 0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-10px, -22px) rotate(-15deg); }
+}
+
+/* ---------- Mapa de ubicación ---------- */
+.mapa {
+  width: 100%; height: clamp(150px, calc(var(--h) * .36), 230px);
+  margin: .8rem 0 .2rem; border-radius: 12px; overflow: hidden;
+  border: 4px solid #fff;
+  background: linear-gradient(160deg, var(--lila-claro), var(--lila));
+  box-shadow: 0 8px 20px rgba(60, 30, 80, .25), 0 0 0 1px rgba(212, 175, 55, .55);
+}
+.mapa iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ---------- Páginas de foto (intercaladas) ---------- */
+.foto-pag { padding: 26px 22px 40px; }
+.marco-foto {
+  display: block; width: 100%;
+  height: calc(var(--h) - 130px);
+  padding: 0; border: 6px solid #fff; border-radius: 8px; cursor: zoom-in;
+  overflow: hidden; position: relative;
+  background: linear-gradient(160deg, var(--lila-claro), var(--lila));
+  box-shadow: 0 10px 24px rgba(60, 30, 80, .28), 0 0 0 1px rgba(212, 175, 55, .5);
+}
+.marco-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.marco-foto.vacia { cursor: default; }
+.marco-foto.vacia::after {
+  content: "Foto de la quinceañera"; position: absolute; inset: 0;
+  display: grid; place-items: center; padding: 20px;
+  font-family: var(--f-script); font-size: 1.9rem; color: rgba(255, 255, 255, .9);
+}
+.pie-foto { font-family: var(--f-script); font-size: 1.9rem; color: var(--morado); margin-top: .35rem; line-height: 1; }
+
+/* ---------- Efectos rápidos de texto ---------- */
+.hoja.activa .pagina > * {
+  animation: entrar .45s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+/* La portada se muestra al instante, sin efecto */
+#libro > .hoja:first-child .pagina > * { animation: none !important; opacity: 1; }
+.hoja.activa .pagina > .nombre-grande { animation-name: pop; animation-duration: .55s; }
+.hoja.activa .pagina > .trenza { animation-name: estirar; }
+.hoja.activa .pagina > .titulo-pag { animation-name: espaciar; }
+.hoja.activa .pagina > .marco-foto { animation-name: revelar; animation-duration: .6s; }
+
+.bienvenida .sobre > * {
+  animation: entrar .45s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms + 300ms);
+}
+.bienvenida .sobre > h1 { animation-name: pop; animation-duration: .6s; }
+.bienvenida .sobre > .sello { animation: entrar .45s both calc(var(--i, 0) * 80ms + 300ms), latido 2.2s ease-in-out 1.5s infinite; }
+
+@keyframes entrar { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pop { 0% { opacity: 0; transform: scale(.7); } 70% { opacity: 1; transform: scale(1.06); } 100% { opacity: 1; transform: none; } }
+@keyframes estirar { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes espaciar { from { opacity: 0; transform: scaleX(1.25); } to { opacity: 1; transform: none; } }
+@keyframes revelar { from { opacity: 0; clip-path: inset(50% 0 50% 0); transform: scale(1.04); } to { opacity: 1; clip-path: inset(0); transform: none; } }
+
+/* ---------- Visor de fotos ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  background: rgba(20, 10, 30, .93);
+}
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 92vw; max-height: 82vh; border: 5px solid #fff; border-radius: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, .6); }
+.lb-btn { position: absolute; background: none; border: none; color: #fff; font-size: 2.6rem; cursor: pointer; padding: 10px 16px; }
+.lb-cerrar { top: 10px; right: 12px; }
+.lb-prev { left: 4px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 4px; top: 50%; transform: translateY(-50%); }
+
+/* ---------- Accesibilidad: menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .farol, .esquina, .sello, .rep-esquina-vinilo, .rep-esquina::after { animation: none !important; }
+  .hoja .pagina > *, .bienvenida .sobre > * { animation: none !important; opacity: 1 !important; }
+  .hoja, .libro { transition-duration: .01s; }
+}
+
+/* ---------- Página de música ---------- */
+.disco { width: min(50%, 180px); aspect-ratio: 1; margin: .7rem auto .3rem; position: relative; }
+.vinilo {
+  position: absolute; inset: 0; border-radius: 50%;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(circle, var(--oro-claro) 0 17%, var(--oro) 17.5% 21%, transparent 21.5%),
+    repeating-radial-gradient(circle, #2a1740 0 2px, #3b2157 2px 4px);
+  box-shadow: 0 10px 24px rgba(42, 23, 64, .45), inset 0 0 0 3px rgba(212, 175, 55, .6);
+  animation: girar 6s linear infinite;
+  animation-play-state: paused;
+}
+.vinilo::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .2), transparent 40%, transparent 60%, rgba(255, 255, 255, .08));
+}
+.vinilo svg { width: 17%; height: 23%; position: relative; z-index: 1; }
+body.musica-on .vinilo { animation-play-state: running; }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.rep { display: flex; align-items: center; gap: 8px; margin-top: .5rem; font-size: .85rem; color: var(--morado-2); font-variant-numeric: tabular-nums; }
+.rep-barra { flex: 1; height: 18px; position: relative; cursor: pointer; display: flex; align-items: center; }
+.rep-barra::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 4px; border-radius: 4px;
+  background: var(--lila-claro); box-shadow: inset 0 0 0 1px rgba(183, 159, 216, .6);
+}
+.rep-barra span { position: relative; height: 4px; width: 0; border-radius: 4px; background: linear-gradient(90deg, var(--oro), var(--oro-claro)); }
+.rep-barra span::after {
+  content: ""; position: absolute; right: -6px; top: 50%; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--oro); transform: translateY(-50%); box-shadow: 0 0 6px rgba(212, 175, 55, .8);
+}
+.rep-controles { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: .5rem; }
+.rep-salto {
+  width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer; background: none;
+  color: var(--morado); font-family: var(--f-texto); font-weight: 600; font-size: .95rem;
+}
+.rep-salto:hover { background: var(--lila-claro); }
+.rep-play {
+  width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
+  display: grid; place-items: center; color: #3a2410;
+  background: radial-gradient(circle at 35% 30%, #f8e7a8, var(--oro) 50%, var(--oro-osc));
+  box-shadow: 0 6px 16px rgba(160, 122, 24, .45);
+}
+.rep-play svg { width: 24px; height: 24px; grid-area: 1 / 1; }
+.rep-play .ico-pausa, body.musica-on .rep-play .ico-play { display: none; }
+body.musica-on .rep-play .ico-pausa { display: block; }
+
+
+/* =========================================================
+   AJUSTES: DISEÑO RESPONSIVO, LETRAS MÁS SEPARADAS Y GALERÍA
+   (este bloque va al final para que tenga prioridad)
+   ========================================================= */
+
+/* ---------- Tamaño del libro según ancho Y alto de la pantalla ---------- */
+:root { --w: min(90vw, 420px, max(250px, calc((100vh - 140px) / 1.55))); }
+@supports (height: 100svh) {
+  :root { --w: min(90vw, 420px, max(250px, calc((100svh - 140px) / 1.55))); }
+}
+@media (min-width: 900px) {
+  :root { --w: min(42vw, 420px, max(260px, calc((100vh - 140px) / 1.55))); }
+  @supports (height: 100svh) {
+    :root { --w: min(42vw, 420px, max(260px, calc((100svh - 140px) / 1.55))); }
+  }
+}
+.escenario { gap: 14px; padding: 18px 10px 26px; }
+/* Las letras de las páginas crecen o se achican con el libro */
+.libro { container-type: inline-size; }
+
+.frente { padding: clamp(24px, 8cqi, 32px) clamp(16px, 6cqi, 26px) clamp(38px, 11cqi, 46px); }
+.deco-esq { width: clamp(50px, 18cqi, 74px); height: clamp(50px, 18cqi, 74px); }
+
+/* ---------- Tipografía con más aire (misma letra, menos apretada) ---------- */
+.pre { font-size: clamp(.7rem, 3cqi, .85rem); line-height: 1.6; letter-spacing: .24em; }
+.titulo-pag { font-size: clamp(1rem, 5cqi, 1.3rem); line-height: 1.4; margin: .55rem 0 .7rem; }
+.nombre-grande { font-size: clamp(2.5rem, 17cqi, 4.4rem); line-height: 1.3; margin: .15em 0 .05em; }
+.apellidos { font-size: clamp(.8rem, 3.8cqi, 1rem); line-height: 1.6; margin: .1rem 0 .5rem; }
+.xv { font-size: clamp(.95rem, 4.6cqi, 1.2rem); line-height: 1.6; }
+.fecha-corta { font-size: clamp(.9rem, 4.2cqi, 1.1rem); line-height: 1.6; }
+.hint { margin-top: 1.3rem; font-size: clamp(.8rem, 3.6cqi, .92rem); line-height: 1.55; }
+.texto { font-size: clamp(.95rem, 4.4cqi, 1.1rem); line-height: 1.65; }
+.texto.mini { font-size: clamp(.8rem, 3.6cqi, .9rem); margin-top: .7rem; }
+.nombres { font-size: clamp(1.5rem, 8cqi, 2.1rem); line-height: 1.45; margin: .25rem 0 .3rem; }
+.y { font-size: clamp(1.3rem, 6cqi, 1.6rem); line-height: 1.4; }
+.frase { font-size: clamp(.95rem, 4.4cqi, 1.12rem); line-height: 1.7; padding: 0 .5rem; }
+.lugar { font-size: clamp(.95rem, 4.6cqi, 1.1rem); line-height: 1.5; margin-bottom: .4rem; }
+.direccion { font-size: clamp(1.05rem, 5.4cqi, 1.35rem); line-height: 1.45; margin: .3rem 0; }
+.hora { font-size: clamp(1rem, 4.6cqi, 1.15rem); line-height: 1.5; margin-top: .5rem; }
+.icono-grande { font-size: clamp(1.7rem, 8cqi, 2.2rem); line-height: 1.3; margin-bottom: .2rem; }
+.icono-farol { width: clamp(30px, 10cqi, 40px); height: clamp(40px, 13.5cqi, 54px); }
+.portada .portada-torre { width: clamp(44px, 16cqi, 64px); height: clamp(74px, 27cqi, 108px); }
+.trenza { margin: 1rem auto; }
+.cuenta { gap: clamp(4px, 2cqi, 8px); margin: 1.1rem 0 .8rem; }
+.cuenta span { font-size: clamp(1.1rem, 6.5cqi, 1.7rem); line-height: 1.3; }
+.cuenta small { font-size: clamp(.6rem, 2.8cqi, .72rem); }
+.cuenta-msg { font-size: clamp(.95rem, 4.4cqi, 1.05rem); line-height: 1.6; }
+.btn { font-size: clamp(.9rem, 4.2cqi, 1.02rem); padding: .75em 1.3em; }
+.num-pag { font-size: clamp(.68rem, 3cqi, .78rem); }
+
+/* Bienvenida */
+.sobre { padding: clamp(24px, 6vw, 34px) clamp(18px, 5vw, 26px) clamp(22px, 5vw, 28px); }
+.sobre h1 { line-height: 1.25; margin: .2rem 0; }
+.sobre-nombre { line-height: 1.5; }
+.sobre-sub, .sobre-hint { line-height: 1.6; }
+@media (max-height: 640px) {
+  .sobre-torre { width: 44px; height: 72px; }
+  .sello { width: 76px; height: 76px; }
+}
+
+/* ---------- Código de vestimenta ---------- */
+.lugar.vestimenta { font-size: clamp(1.05rem, 5.2cqi, 1.3rem); letter-spacing: .2em; margin-bottom: .25rem; }
+.nota-lila { font-style: italic; color: var(--morado-2); margin-bottom: .3rem; }
+
+/* ---------- Galería de 3 fotos ---------- */
+.galeria {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(8px, 3cqi, 12px);
+  width: min(100%, calc((var(--h) - 170px) / 1.1));
+  aspect-ratio: 1 / 1.1;
+  margin: .3rem auto 0; padding: 6px;
+}
+.galeria .foto { aspect-ratio: auto; width: 100%; height: 100%; border-width: 4px; }
+.galeria .foto:first-child { grid-row: 1 / 3; transform: rotate(-2deg); }
+.galeria .foto:nth-child(2) { transform: rotate(2.5deg); }
+.galeria .foto:nth-child(3) { transform: rotate(-1.5deg); }
+.galeria .foto:hover { transform: rotate(0) scale(1.03); z-index: 2; }
+.hoja.activa .pagina > .galeria { animation-name: revelar; animation-duration: .6s; }
+
+/* ---------- Reproductor de la esquina en pantallas pequeñas ---------- */
+@media (max-width: 480px) {
+  .rep-esquina { width: 52px; height: 52px; top: -14px; right: -10px; }
+  .rep-esquina-anillo { width: 52px; height: 52px; }
+  .rep-esquina-vinilo { width: 40px; height: 40px; }
+}
+
+/* ---------- Pantallas bajitas (celular acostado) ---------- */
+@media (max-height: 520px) {
+  .escenario { justify-content: flex-start; padding-top: 22px; }
+}
+
+/* Bienvenida: si la pantalla es bajita se puede desplazar y nunca se corta el sello */
+.bienvenida { display: flex; overflow-y: auto; }
+.bienvenida .sobre { margin: auto; }
+@media (max-height: 520px) {
+  .sobre { padding: 16px 20px; }
+  .sobre-torre { display: none; }
+  .sobre h1 { font-size: 2.6rem; }
+  .sobre .trenza { margin: 8px auto 10px; }
+  .sello { width: 66px; height: 66px; }
+  .sello span { font-size: 1.3rem; }
+  .sobre-hint { margin-top: 8px; }
+}
+
+/* =========================================================
+   TRANSICIÓN TIPO PELÍCULA AL TOCAR EL SELLO
+   ========================================================= */
+.cine { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; overflow: hidden; }
+.cine.activo { visibility: visible; }
+#cineCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Franjas negras de cine */
+.cine-franja {
+  position: absolute; left: 0; right: 0; height: 11vh; background: #07030c;
+  transform: scaleY(0); transition: transform .55s cubic-bezier(.7, 0, .3, 1);
+}
+.cine-franja.arriba { top: 0; transform-origin: top; }
+.cine-franja.abajo { bottom: 0; transform-origin: bottom; }
+.cine.activo .cine-franja { transform: scaleY(1); }
+.cine.activo.salida .cine-franja { transform: scaleY(0); transition-duration: .8s; }
+
+/* Destello de luz que sale del sello y llena la pantalla */
+.cine-destello {
+  position: absolute; left: var(--x, 50%); top: var(--y, 50%); will-change: transform, opacity;
+  width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #fff7da 30%, rgba(243, 220, 138, .75) 55%, rgba(243, 220, 138, 0) 70%);
+  opacity: 0; transform: scale(0);
+}
+.cine.activo .cine-destello { animation: destello 2.2s cubic-bezier(.25, .6, .3, 1) .2s forwards; }
+@keyframes destello {
+  0%   { opacity: 0; transform: scale(0); }
+  25%  { opacity: 1; transform: scale(70); }
+  62%  { opacity: 1; transform: scale(78); }
+  100% { opacity: 0; transform: scale(90); }
+}
+
+/* Título de película */
+.cine-titulo {
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+  text-align: center; font-family: var(--f-script);
+  font-size: clamp(2.6rem, 11vw, 4.6rem); line-height: 1.3;
+  color: var(--morado); text-shadow: 0 0 24px rgba(255, 255, 255, .9);
+  opacity: 0; will-change: transform, opacity;
+}
+.cine.activo .cine-titulo { animation: tituloCine 1.5s ease .6s forwards; }
+@keyframes tituloCine {
+  0%   { opacity: 0; transform: translateY(-50%) scale(.9); }
+  35%  { opacity: 1; transform: translateY(-50%) scale(1); }
+  70%  { opacity: 1; transform: translateY(-50%) scale(1.02); }
+  100% { opacity: 0; transform: translateY(-50%) scale(1.08); }
+}
+
+/* El sello se ilumina y la tarjeta se acerca a la cámara */
+.sello { position: relative; }
+.sello::after {
+  content: ""; position: absolute; inset: -40%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 248, 220, .95) 0%, rgba(243, 220, 138, .6) 35%, rgba(243, 220, 138, 0) 70%);
+  opacity: 0; transform: scale(.5);
+}
+.bienvenida .sobre > .sello.presionado { animation: selloCine .65s cubic-bezier(.3, 0, .2, 1) forwards; }
+.sello.presionado::after { animation: selloBrillo .9s ease-out forwards; }
+@keyframes selloCine {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(.86) rotate(-8deg); }
+  100% { transform: scale(1.5) rotate(10deg); }
+}
+@keyframes selloBrillo {
+  0%   { opacity: 0; transform: scale(.5); }
+  40%  { opacity: 1; transform: scale(1.6); }
+  100% { opacity: 0; transform: scale(3); }
+}
+/* La tarjeta se acerca a la cámara (sin desenfoques: más fluido en celular) */
+.sobre.cine-sale {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  will-change: transform, opacity;
+  animation: sobreCine .9s cubic-bezier(.5, 0, .3, 1) forwards;
+}
+@keyframes sobreCine {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+
+/* El libro aparece con un acercamiento de cámara */
+.escenario.cine-listo { animation: none !important; will-change: auto; }
+.escenario.cine-entra { animation: entraCine 1.5s cubic-bezier(.2, .7, .2, 1) both; will-change: transform, opacity; }
+@keyframes entraCine {
+  from { opacity: 0; transform: scale(1.12); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine { display: none; }
+}
